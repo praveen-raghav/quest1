@@ -1,0 +1,25 @@
+<%= render :partial => 'header/header'%>
+<head>
+<h1>All posts</h1>
+</head>
+<body>
+    <table>
+        <% @posts.each do |post| %>
+            <div class="postlist">
+                <tr>
+                    
+                    <div class="eachpost">
+                        <div class="postdata">
+                            <div class="post-title"><%= link_to post.title, post_path(post) %></div>
+                            <div class="post-content"><%= post.content %></div>
+                        </div>
+                        <div class="postmetadata">
+                            <div class="post-user"><%= link_to User.find(post.user_id).name, user_path(User.find(post.user_id)) %></div>
+                        </div>
+                    </div>
+                   
+                </tr>
+            </div>
+        <% end %>
+    </table>
+</body>

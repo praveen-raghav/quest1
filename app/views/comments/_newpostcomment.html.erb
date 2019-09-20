@@ -1,0 +1,13 @@
+<p>
+<p>
+    <%= form_for([@post, comment]) do |f| %>
+<p>
+    <%= f.label :comment %>
+    <%= f.text_area :comment, class: "form-control" %>
+</p>
+
+<p>
+  <%= f.submit "comment", class: 'btn btn-primary' %>
+</p>
+<% end %>
+</p>

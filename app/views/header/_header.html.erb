@@ -1,0 +1,14 @@
+<div class="header">
+<a href="#default" class="logo">Quest</a>
+    <div class="header-right">
+        <a href="">contact</a>
+        <a href="">about</a>
+      <% if logged_in? %>
+        <a> <%= link_to "log out", logout_path, method: :delete %> </a>
+        <% cur_usr = current_user %>
+        <a href=""><%= cur_usr.name %></a>
+      <% else %>
+        <a> <%= link_to "login", login_path %> </a>
+      <% end %>
+    </div>
+</div>

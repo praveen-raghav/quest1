@@ -1,0 +1,13 @@
+<div id="logincontainer">
+
+  <div class="form-group col-xs-3" id="logincenter">
+
+    <%= form_for(:session, url:login_path) do |f| %>
+        <%= f.label :quest, class: "whitetext" %><br>
+        <%= f.email_field :email, class: 'form-control', placeholder:'Email', style:"background-color:transparent"%><br>
+        <%= f.password_field :password, class: 'form-control', placeholder:'Password', style:"background-color:transparent" %><br>
+        <%= f.submit "LOGIN", class: 'btn btn-primary center-block' %>
+    <% end %>
+  </div>
+
+</div>

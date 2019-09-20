@@ -1,0 +1,10 @@
+<% if( commentparent.comments.count > 0) %>
+
+    <h4>comments</h4>
+
+    <% commentparent.comments.each do |comment| %>
+    <%= comment.comment %><br>
+    <%= render :partial => 'common/metadata', :locals => {:table => :comments, :id => comment.id} %>
+    <% end %>
+
+<% end %>
