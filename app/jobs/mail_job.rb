@@ -5,7 +5,7 @@ class MailJob < ActiveJob::Base
     @response = Response.find(response_id)
     post_id = @response[:post_id]
     @users = User.joins("INNER JOIN post_follows ON users.id = post_follows.user_id").where("post_follows.post_id="+post_id.to_s)
-    post_title = Post.find(post_id)[:title]
+    post_title = Post.find(post_id)[:title]#test line 8
 # merge PR
     #merge PR 2
     @users.each do |eachuser|
