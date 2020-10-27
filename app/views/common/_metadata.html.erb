@@ -1,0 +1,13 @@
+<div class="post-text metadata">
+<% if table == :posts %>
+  <% record = Post.find(id) %>
+<% elsif table == :comments%>
+  <% record = Comment.find(id) %>
+<% elsif table == :responses%>
+  <% record = Response.find(id) %>
+<% end %>
+
+<% user_record = User.find(record.user_id) %>
+
+by <%= link_to user_record.name, user_path(user_record) %> on <%= record.created_at.strftime("%d-%b-%Y") %>
+</div>

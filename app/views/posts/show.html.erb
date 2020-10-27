@@ -1,0 +1,85 @@
+<div style="position: relative">
+  <%= render :partial => 'header/header'%>
+</div>
+
+<div class="post-page dev-border">
+
+  <div class="post-text post-header dev-border">
+    <%= @post.title %>
+  </div>
+
+  <div class="post-text dev-border">
+    <%= @post.content %>
+  </div>
+
+
+
+    <%= render :partial => 'common/metadata', :locals => {:table => :posts, :id => @post.id} %>
+
+
+  <div>
+      <% if is_user_follow_post?(current_user.id, @post.id) %>
+        <%= button_to 'unfollow', {:controller => "postfollow", :action => "destroy"}, method: :delete, class: 'btn btn-danger' %>
+      <% else %>
+        <%= button_to 'follow', {:controller => "postfollow", :action => "create", :post_id => @post.id }, class: 'btn btn-success' %>
+      <% end %>
+  </div>
+  <% if current_user.id == @post.user_id %>
+  <%= button_to 'delete post', {:controller => "posts", :action => "destroy"}, method: :delete, class: 'btn btn-danger' %>
+  <% end %>
+  <a data-toggle="collapse" href="#newPostComment" aria-controls="newPostComment">
+    add comment
+  </a>
+<div class="collapse" id="newPostComment">
+  <%= render :partial => 'comments/newpostcomment', :locals => {:post => @post, :comment => Comment.new } %>
+</div>
+  <%= render :partial => 'comments/showcomments', :locals => {:commentparent => @post} %>
+
+  <a data-toggle="collapse" href="#newResponse" aria-controls="newResponse">
+    add response
+  </a>
+<div class="collapse" id="newResponse">
+
+  <%= form_for([@post, @post.response.build]) do |f| %>
+    <p>
+      <%= f.label :content %>
+      <%= f.text_area :content, class: "form-control" %>
+    </p>
+
+    <p>
+      <%= f.submit "add response", class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</div>
+
+  <% @responses = Response.where("post_id=?", @post.id) %>
+  <% if @responses.count > 0 %>
+    <h4> responses </h4>
+  <% @responses.each do |res| %>
+    <div class="response">
+      <p>
+
+      <div class="post-text response-text">
+        <%= res.content %>
+        <%= render :partial => 'common/metadata', :locals => {:table => :responses, :id => res.id} %>
+      </div>
+      <%= render :partial => 'comments/showcomments', :locals => {:commentparent => res} %>
+      <% responseid = "newResponseComment"+res.id.to_s %>
+      <% hrefResponse = "#"+responseid %>
+
+      <a data-toggle="collapse" href=<%=hrefResponse %> aria-controls=<%=responseid %>>
+        add comment
+      </a>
+
+
+      <div class="collapse" id=<%=responseid %>>
+        <%= render :partial => 'comments/newresponsecomment', :locals => {:response => res, :comment => res.comments.new } %>
+      </div>
+
+      </p>
+    </div>
+  <% end %>
+  <% end %>
+
+</div>
+
